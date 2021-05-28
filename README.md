@@ -16,6 +16,7 @@ Type the following in command line:
 
 ENJOY!
 
-#Contributions
-You can enjoy the game. However, the ending of the game has some bug. Any contributions are welcome!<br><br>
+# Contributions
+The ending of the game has some bug.<br>
+Any contributions are welcome!<br><br>
 Cheers!
