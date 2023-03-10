@@ -1,6 +1,7 @@
 # Save_the_Castle
 
 Save the Castle is a game written using Python 3.9.4 and Pygame module. The classes are constructed using Pygame methods for Sprites and their controls.
+![Screenshot (1235)](https://user-images.githubusercontent.com/80671124/224404236-5a54dccc-4bf6-4181-8226-6bbc209b40c3.png)
 
 A simple simulated game where the player has the motive of preventing monsters from reaching the castle. Try to sustain during the game in the 1.30 minutes before your health runs out.
 <br><br>
