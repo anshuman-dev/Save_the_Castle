@@ -1,0 +1,43 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# Headers for better security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Cache static assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# SPA redirect - all routes should serve index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Environment variables for production
+[context.production.environment]
+  VITE_ENVIRONMENT = "production"
+  VITE_BASE_SEPOLIA_RPC = "https://sepolia.base.org"
+  VITE_GAME_ECONOMY_ADDRESS = "0x55cBEa71ad8B981B91B137116B76a4828F90C548"
+  VITE_LEADERBOARD_ADDRESS = "0x59FF2595588AA2236441B0E82b2CD692e1373E58"
+  VITE_USDC_ADDRESS = "0x036CbD53842c5426634e7929541eC2318f3dCF7e"
+
+# Environment variables for deploy previews
+[context.deploy-preview.environment]
+  VITE_ENVIRONMENT = "preview"
+  VITE_BASE_SEPOLIA_RPC = "https://sepolia.base.org"
+  VITE_GAME_ECONOMY_ADDRESS = "0x55cBEa71ad8B981B91B137116B76a4828F90C548"
+  VITE_LEADERBOARD_ADDRESS = "0x59FF2595588AA2236441B0E82b2CD692e1373E58"
+  VITE_USDC_ADDRESS = "0x036CbD53842c5426634e7929541eC2318f3dCF7e"
