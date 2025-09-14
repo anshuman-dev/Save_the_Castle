@@ -26,7 +26,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   preload(): void {
-    // Load placeholder assets (will be replaced with actual assets later)
+    // Load actual game assets
     this.load.image('grass', '/assets/images/back.jpg');
     this.load.image('castle', '/assets/images/final.png');
     this.load.image('tree', '/assets/images/tree.png');
@@ -42,9 +42,40 @@ export class GameScene extends Phaser.Scene {
     this.load.audio('enemy', '/assets/audio/beltslap.mp3');
     this.load.audio('backmusic', '/assets/audio/boldback.mp3');
     
-    // Create fallback colored rectangles if images don't load
+    // Handle loading errors gracefully
     this.load.on('loaderror', (file: any) => {
-      console.warn(`Failed to load: ${file.src}`);
+      console.warn(`Failed to load asset: ${file.src}`);
+      
+      // Create colored fallback for missing images
+      switch (file.key) {
+        case 'grass':
+          this.add.graphics().fillStyle(0x228B22).fillRect(0, 0, 100, 100).generateTexture('grass', 100, 100);
+          break;
+        case 'castle':
+          this.add.graphics().fillStyle(0x8B4513).fillRect(0, 0, 80, 100).generateTexture('castle', 80, 100);
+          break;
+        case 'tree':
+          this.add.graphics().fillStyle(0x006400).fillRect(0, 0, 60, 100).generateTexture('tree', 60, 100);
+          break;
+        case 'player':
+          this.add.graphics().fillStyle(0x0066FF).fillRect(0, 0, 32, 32).generateTexture('player', 32, 32);
+          break;
+        case 'enemy':
+          this.add.graphics().fillStyle(0xFF0000).fillRect(0, 0, 32, 32).generateTexture('enemy', 32, 32);
+          break;
+        case 'arrow':
+          this.add.graphics().fillStyle(0xFFFF00).fillRect(0, 0, 16, 4).generateTexture('arrow', 16, 4);
+          break;
+      }
+    });
+    
+    // Loading progress
+    this.load.on('progress', (progress: number) => {
+      console.log(`Loading assets: ${Math.round(progress * 100)}%`);
+    });
+    
+    this.load.on('complete', () => {
+      console.log('All assets loaded successfully!');
     });
   }
 
@@ -69,26 +100,29 @@ export class GameScene extends Phaser.Scene {
   }
 
   private createBackground(): void {
-    // Create grass background
+    // Create grass background using the actual grass texture
     const grassWidth = 100;
     const grassHeight = 100;
     
     for (let x = 0; x < 1024; x += grassWidth) {
       for (let y = 0; y < 768; y += grassHeight) {
-        const grass = this.add.rectangle(x + grassWidth/2, y + grassHeight/2, grassWidth, grassHeight, 0x228B22);
+        const grass = this.add.image(x + grassWidth/2, y + grassHeight/2, 'grass');
+        grass.setDisplaySize(grassWidth, grassHeight);
         grass.setDepth(-3);
       }
     }
     
-    // Create castle (left side)
-    for (let i = 0; i < 10; i++) {
-      const castle = this.add.rectangle(40, 105 * i + 52, 80, 105, 0x8B4513);
+    // Create castle sprites (left side)
+    for (let i = 0; i < 8; i++) {
+      const castle = this.add.image(50, i * 100 + 50, 'castle');
+      castle.setScale(0.8);
       castle.setDepth(-2);
     }
     
-    // Create trees (right side)
+    // Create tree sprites (right side)
     for (let j = 0; j < 8; j++) {
-      const tree = this.add.rectangle(960, 105 * j + 52, 80, 105, 0x006400);
+      const tree = this.add.image(950, j * 100 + 50, 'tree');
+      tree.setScale(0.6);
       tree.setDepth(-1);
     }
   }
@@ -121,11 +155,11 @@ export class GameScene extends Phaser.Scene {
     });
     this.timerText.setDepth(10);
     
-    // Health bar background
-    const healthBarBg = this.add.rectangle(512, 25, 204, 24, 0x000000);
-    healthBarBg.setDepth(9);
+    // Health bar using actual sprites
+    const healthBarSprite = this.add.image(512, 25, 'healthbar');
+    healthBarSprite.setDepth(9);
     
-    // Health bar
+    // Health bar (will be drawn programmatically)
     this.healthBar = this.add.graphics();
     this.healthBar.setDepth(10);
     
