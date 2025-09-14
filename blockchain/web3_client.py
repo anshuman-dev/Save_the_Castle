@@ -19,9 +19,9 @@ class SaveTheCastleWeb3Client:
     BASE_SEPOLIA_RPC = "https://sepolia.base.org"
     CHAIN_ID = 84532
     
-    # Contract addresses on Base Sepolia
-    GAME_ECONOMY_ADDRESS = "0x55cbea71ad8b981b91b137116b76a4828f90c548"
-    LEADERBOARD_ADDRESS = "0x59ff2595588aa2236441b0e82b2cd692e1373e58"
+    # Contract addresses on Base Sepolia (checksummed)
+    GAME_ECONOMY_ADDRESS = "0x55cBEa71ad8B981B91B137116B76a4828F90C548"
+    LEADERBOARD_ADDRESS = "0x59FF2595588AA2236441B0E82b2CD692e1373E58"
     USDC_ADDRESS = "0x036CbD53842c5426634e7929541eC2318f3dCF7e"  # USDC on Base Sepolia
     
     def __init__(self, private_key: Optional[str] = None, rpc_url: Optional[str] = None):
