@@ -1,0 +1,25 @@
+{
+  "name": "save-the-castle-contracts",
+  "version": "1.0.0",
+  "description": "Smart contracts for Save The Castle game",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy:base-sepolia": "hardhat run scripts/deploy.js --network base-sepolia",
+    "verify:base-sepolia": "hardhat verify --network base-sepolia",
+    "test": "hardhat test",
+    "node": "hardhat node"
+  },
+  "keywords": ["solidity", "hardhat", "base", "game", "blockchain"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "hardhat": "^2.19.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.0",
+    "dotenv": "^16.3.1"
+  }
+}
